@@ -24,7 +24,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
    if(res.status === 400 || !data){
     window.alert("Invalid Credentials");
    }else{
-    window.alert("Login Successful");
+    // window.alert("Login Successful");
    }
     onLogin(email, password);
   };
