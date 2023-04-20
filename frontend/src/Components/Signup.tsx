@@ -30,7 +30,7 @@ setUser({...user, [name]:value})
 const PostData = async(e:any)=>{
 e.preventDefault();
 const {name, email, password} = user;
-let  res = await fetch("http://localhost:5000/users/register",{
+let  res = await fetch("http://localhost:8000/users/register",{
     method:"POST",
     headers:{
         "Content-Type" : "application/json"
@@ -55,10 +55,6 @@ else{
 onSignUp(name, email, password);
 }
 
-//   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-//     event.preventDefault();
-//     // onSignUp(name, email, password);
-//   };
 
   return (
     <form method="POST" >

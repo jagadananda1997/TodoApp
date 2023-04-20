@@ -37,6 +37,7 @@ const login = async (req:Request, res:Response) =>{
 
         }
         const token = jwt.sign({email: existingUser.email, id:existingUser._id },process.env.SECRET_KEY!);
+       
         res.status(201).json({user: existingUser, token:token});
     } catch (error) {
         console.log(error);

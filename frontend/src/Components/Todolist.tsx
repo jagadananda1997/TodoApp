@@ -29,10 +29,11 @@ const TodoList: React.FC = () => {
 
   const handleGetTodo = async () => {
     try {
-      const res = await fetch("http://localhost:5000/todo", {
+      const res = await fetch("http://localhost:8000/todo", {
         method: "GET",
       });
       const data = await res.json();
+  
       // if (Array.isArray(data)) {
       setTodos(data);
       // } else {
@@ -54,7 +55,7 @@ const TodoList: React.FC = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:5000/todo", {
+      const response = await fetch("http://localhost:8000/todo", {
         method: "POST",
 
         // headers: { "Content-Type": "application/json" },
@@ -78,7 +79,7 @@ const TodoList: React.FC = () => {
 
   const handleDeleteTodo = async (id: number) => {
     try {
-      const res = await fetch(`http://localhost:5000/todo/${id}`, {
+      const res = await fetch(`http://localhost:8000/todo/${id}`, {
         method: "DELETE",
       });
       const data = await res.json();
@@ -100,7 +101,7 @@ const TodoList: React.FC = () => {
     };
 
     try {
-      const res = await fetch(`http://localhost:5000/todo/${id}`, {
+      const res = await fetch(`http://localhost:8000/todo/${id}`, {
         method: "PUT",
 
         // headers: { "Content-Type": "application/json" },
@@ -170,33 +171,35 @@ const TodoList: React.FC = () => {
         </Box>
       </form>
       <List>
-        {todos.map((todo) => (
-          <ListItem key={todo._id}>
-            <ListItemText primary={todo.title} />
-            <ListItemSecondaryAction>
-              <IconButton
-                edge="end"
-                aria-label="edit"
-                onClick={() => {
-                  const newTitle = prompt("Enter new title:", todo.title);
-                  if (newTitle !== null) {
-                    handleEditTodo(todo._id, newTitle);
-                  }
-                }}
-              >
-                <Edit />
-              </IconButton>
-              <IconButton
-                edge="end"
-                aria-label="delete"
-                onClick={() => handleDeleteTodo(todo._id)}
-              >
-                <Delete />
-              </IconButton>
-            </ListItemSecondaryAction>
-          </ListItem>
-        ))}
-      </List>
+
+  {todos.map((todo) => (
+    <ListItem key={todo._id}>
+      <ListItemText primary={todo.title} />
+      <ListItemSecondaryAction>
+        <IconButton
+          edge="end"
+          aria-label="edit"
+          onClick={() => {
+            const newTitle = prompt("Enter new title:", todo.title);
+            if (newTitle !== null) {
+              handleEditTodo(todo._id, newTitle);
+            }
+          }}
+        >
+          <Edit />
+        </IconButton>
+        <IconButton
+          edge="end"
+          aria-label="delete"
+          onClick={() => handleDeleteTodo(todo._id)}
+        >
+          <Delete />
+        </IconButton>
+      </ListItemSecondaryAction>
+    </ListItem>
+  ))}
+</List>
+
     </>
   );
 };
