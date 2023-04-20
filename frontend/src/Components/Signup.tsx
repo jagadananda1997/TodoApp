@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {useNavigate} from "react-router-dom";
 import { Button, TextField, Box, Typography } from "@mui/material";
 import HowToRegOutlinedIcon from "@mui/icons-material/HowToRegOutlined";
@@ -7,13 +7,18 @@ interface SignUpProps {
 }
 
 const SignUp: React.FC<SignUpProps> = ({ onSignUp }) => {
-//   const [name, setName] = useState("");
-//   const [email, setEmail] = useState("");
-//   const [password, setPassword] = useState("");
-const navigate = useNavigate();
-const [user, setUser] = useState({
+  const [user, setUser] = useState({
     name:"", email:"", password:""
 });
+const navigate = useNavigate();
+
+
+useEffect(()=>{
+  const auth = localStorage.getItem("user");
+  if(auth){
+    navigate("/")
+  }
+})
 let name, value;
 const handleInputs =(e:any)=>{
 console.log(e);
