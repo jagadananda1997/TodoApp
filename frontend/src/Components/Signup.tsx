@@ -42,6 +42,7 @@ if(data.status === 400 || !data){
     
 }
 else{
+    localStorage.setItem("user", JSON.stringify(data));
     window.alert("Registration Successfull");
     console.log("Registration Successfull");
     navigate("/login")
