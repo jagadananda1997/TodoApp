@@ -33,6 +33,7 @@ const TodoList: React.FC = () => {
         method: "GET",
       });
       const data = await res.json();
+     
   
       // if (Array.isArray(data)) {
       setTodos(data);

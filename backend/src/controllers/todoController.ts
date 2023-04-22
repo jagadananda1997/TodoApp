@@ -50,7 +50,7 @@ const deleteTodo = async (req:Request,res:Response)=>{
 const getTodo = async (req:Request,res:Response)=>{
     try {
         const todo = await todoModel.find({userId: req.userId});
-        res.status(200).json(todo);
+         res.status(200).json(todo);
     } catch (error) {
         console.log(error);
     res.status(500).json({message:"Something went wrong"});
