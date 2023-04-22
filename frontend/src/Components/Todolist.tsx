@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 
 import {
@@ -15,7 +14,7 @@ import {
 import { Add, Delete, Edit } from "@mui/icons-material";
 
 interface Todo {
-  _id: number;
+  _id: string;
   title: string;
 }
 
@@ -33,10 +32,9 @@ const TodoList: React.FC = () => {
         method: "GET",
       });
       const data = await res.json();
-     
-  
+
       // if (Array.isArray(data)) {
-      setTodos(data);
+      setTodos([data]);
       // } else {
       //   console.log("API response is not an array");
       // }
@@ -51,7 +49,7 @@ const TodoList: React.FC = () => {
     }
 
     const newTodo: Todo = {
-      _id: Date.now(),
+      _id: Date.now().toString(),
       title: inputValue,
     };
 
@@ -78,7 +76,7 @@ const TodoList: React.FC = () => {
     }
   };
 
-  const handleDeleteTodo = async (id: number) => {
+  const handleDeleteTodo = async (id: string) => {
     try {
       const res = await fetch(`http://localhost:8000/todo/${id}`, {
         method: "DELETE",
@@ -95,7 +93,7 @@ const TodoList: React.FC = () => {
     }
   };
 
-  const handleEditTodo = async (id: number, newTitle: string) => {
+  const handleEditTodo = async (id: string, newTitle: string) => {
     const updatedTodo: Todo = {
       _id: id,
       title: newTitle,
@@ -119,10 +117,11 @@ const TodoList: React.FC = () => {
       console.log("Todo updated");
 
       setTodos((prevTodos) =>
-        prevTodos.map((todos) => (todos._id === id ? updatedTodo : todos))
+        prevTodos.map((todo) => (todo._id === id ? updatedTodo : todo))
       );
     } catch (error) {
       console.error(error);
+      window.alert("Failed to update todo");
     }
   };
 
@@ -172,35 +171,33 @@ const TodoList: React.FC = () => {
         </Box>
       </form>
       <List>
-
-  {todos.map((todo) => (
-    <ListItem key={todo._id}>
-      <ListItemText primary={todo.title} />
-      <ListItemSecondaryAction>
-        <IconButton
-          edge="end"
-          aria-label="edit"
-          onClick={() => {
-            const newTitle = prompt("Enter new title:", todo.title);
-            if (newTitle !== null) {
-              handleEditTodo(todo._id, newTitle);
-            }
-          }}
-        >
-          <Edit />
-        </IconButton>
-        <IconButton
-          edge="end"
-          aria-label="delete"
-          onClick={() => handleDeleteTodo(todo._id)}
-        >
-          <Delete />
-        </IconButton>
-      </ListItemSecondaryAction>
-    </ListItem>
-  ))}
-</List>
-
+        {todos.map((todo) => (
+          <ListItem key={todo._id}>
+            <ListItemText primary={todo.title} />
+            <ListItemSecondaryAction>
+              <IconButton
+                edge="end"
+                aria-label="edit"
+                onClick={() => {
+                  const newTitle = prompt("Enter new title:", todo.title);
+                  if (newTitle !== null) {
+                    handleEditTodo(todo._id, newTitle);
+                  }
+                }}
+              >
+                <Edit />
+              </IconButton>
+              <IconButton
+                edge="end"
+                aria-label="delete"
+                onClick={() => handleDeleteTodo(todo._id)}
+              >
+                <Delete />
+              </IconButton>
+            </ListItemSecondaryAction>
+          </ListItem>
+        ))}
+      </List>
     </>
   );
 };

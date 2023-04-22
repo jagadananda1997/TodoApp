@@ -24,12 +24,8 @@ function App() {
               element={<Login onLogin={handleLogin} />}
             ></Route>
 
-
-            <Route element = {<PrivateComponent/>}>
-              <Route
-              path="/todo"
-              element={<TodoList/>}
-            ></Route>
+            <Route element={<PrivateComponent />}>
+              <Route path="/todo" element={<TodoList />}></Route>
             </Route>
           </Routes>
         </Router>

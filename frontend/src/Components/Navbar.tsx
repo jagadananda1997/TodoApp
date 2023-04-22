@@ -19,10 +19,9 @@ const Navbar: React.FC = () => {
         {auth ? (
           <Link onClick={logout} to="/">
             <Button type="submit" variant="contained" color="primary">
-            Logout
+              Logout
             </Button>
           </Link>
-         
         ) : (
           <Link to="/">
             <Button type="submit" variant="contained" color="primary">

@@ -7,35 +7,39 @@ interface LoginProps {
 }
 
 const Login: React.FC<LoginProps> = ({ onLogin }) => {
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-
-
   const handleSubmit = async (event: any) => {
     event.preventDefault();
-   const res = await  fetch("http://localhost:8000/users/login",{
-    method:"POST",
-    headers:{
-        "Content-Type" : "applicaton/json"
-    },
-    body:JSON.stringify({
-        email, password
-    })
-   });
-   const data = res.json();
-   if(res.status === 400 || !data){
-    window.alert("Invalid Credentials");
-   }else{
-    window.alert("Login Successful");
-
+   if(!email || !password){
+    window.alert("please fill all the fields")
    }
-    onLogin(email, password);
+   else{
+   const res = await fetch("http://localhost:8000/users/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    });
+   
+ 
+    const data = await res.json();
+    if (res.status === 400 || !data) {
+      window.alert("Invalid Credentials");
+    } else {
+      window.alert("Login Successful");
+     
+    }
+  }
   };
 
   return (
-    <form method="POST">
+    <form>
       <Box
         display="flex"
         flexDirection={"column"}
@@ -82,9 +86,6 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
           endIcon={<LoginOutlinedIcon />}
           sx={{ marginTop: 3, borderRadius: 3 }}
           type="submit"
-          name="signin"
-          id="signin"
-    
           variant="contained"
           color="primary"
           onClick={handleSubmit}

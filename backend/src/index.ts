@@ -1,6 +1,7 @@
 import express,{Request, Response} from "express";
 import dotenv from "dotenv";
 import cors from "cors";
+import cookieParser from 'cookie-parser';
 import userRouter from "./routes/userRoutes";
 import todoRouter from "./routes/todoRoutes";
 import connectDB from "./db/connection";
@@ -12,6 +13,7 @@ origin: "http://localhost:3000",
 credentials:true
 }))
 app.use(express.json());
+app.use(cookieParser());
 app.use("/users", userRouter);
 app.use("/todo", todoRouter);
 
