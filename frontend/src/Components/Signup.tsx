@@ -30,6 +30,7 @@ setUser({...user, [name]:value})
 const PostData = async(e:any)=>{
 e.preventDefault();
 const {name, email, password} = user;
+
 let  res = await fetch("http://localhost:8000/users/register",{
     method:"POST",
     headers:{
@@ -46,6 +47,8 @@ if(data.status === 400 || !data){
     console.log("Invalid Registration");
     
 }
+
+
 else{
     localStorage.setItem("user", JSON.stringify(data));
     window.alert("Registration Successfull");
@@ -85,10 +88,10 @@ onSignUp(name, email, password);
           type="text"
           name="name"
           id="name"
-        //   value={name}
+     
         value={user.name}
         onChange={handleInputs}
-        //   onChange={(event) => setName(event.target.value)}
+       
           fullWidth
           margin="normal"
         />
@@ -98,9 +101,9 @@ onSignUp(name, email, password);
           type="email"
           name="email"
           id="email"
-        //   value={email}
+      
         value={user.email}
-        //   onChange={(event) => setEmail(event.target.value)}
+      
         onChange={handleInputs}
           fullWidth
           margin="normal"
@@ -111,9 +114,9 @@ onSignUp(name, email, password);
           type="password"
           name="password"
           id="password"
-        //   value={password}
+      
         value={user.password}
-        //   onChange={(event) => setPassword(event.target.value)}
+       
         onChange={handleInputs}
           fullWidth
           margin="normal"
