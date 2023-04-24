@@ -35,7 +35,7 @@ const TodoList: React.FC = () => {
       const data = await res.json();
 
       // if (Array.isArray(data)) {
-      setTodos(data);
+      setTodos([data]);
       // } else {
       //   console.log("API response is not an array");
       // }
@@ -81,7 +81,7 @@ const TodoList: React.FC = () => {
     try {
       const res = await fetch(`http://localhost:8000/todo/${id}`, {
         method: "DELETE",
-        credentials: "include"
+        credentials: "include",
       });
       const data = await res.json();
       setTodos((prevTodos) => prevTodos.filter((todo) => todo._id !== id));
@@ -105,6 +105,7 @@ const TodoList: React.FC = () => {
       const res = await fetch(`http://localhost:8000/todo/${id}`, {
         method: "PUT",
         credentials: "include",
+
         // headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updatedTodo),
       });
