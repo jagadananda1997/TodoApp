@@ -45,7 +45,7 @@ const SignUp: React.FC<SignUpProps> = ({ onSignUp }) => {
           password,
         }),
       });
-
+// where is the credentials property?
       const data = await res.json();
       if (data.status === 400 || !data) {
         window.alert("Invalid Registration");

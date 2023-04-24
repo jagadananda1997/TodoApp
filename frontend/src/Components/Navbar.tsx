@@ -24,7 +24,9 @@ const Navbar: React.FC = () => {
           </Link>
         ) : (
           <Link to="/">
-            <Button type="submit" variant="contained" color="primary">
+            <Button type="submit" variant="contained" color="primary"
+            sx={{ marginLeft: "8px" }}
+            >
               Sign Up
             </Button>
           </Link>
