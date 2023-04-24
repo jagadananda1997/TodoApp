@@ -18,6 +18,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
    else{
    const res = await fetch("http://localhost:8000/users/login", {
       method: "POST",
+      credentials:"include",
       headers: {
         "Content-Type": "application/json",
       },

@@ -14,11 +14,11 @@ credentials:true
 }))
 app.use(express.json());
 app.use(cookieParser());
-// app.use((req, res, next) => {
-//     res.cookie('name', 'value');
-//     console.log(req.cookies.token);
-// next();
-// })
+app.use((req, res, next) => {
+    res.cookie('name', 'value');
+    console.log(req.cookies.token);
+next();
+})
 app.use("/users", userRouter);
 app.use("/todo", todoRouter);
 

@@ -35,7 +35,7 @@ const TodoList: React.FC = () => {
       const data = await res.json();
 
       // if (Array.isArray(data)) {
-      setTodos([data]);
+      setTodos(data);
       // } else {
       //   console.log("API response is not an array");
       // }

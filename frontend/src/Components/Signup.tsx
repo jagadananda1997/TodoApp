@@ -36,6 +36,7 @@ const SignUp: React.FC<SignUpProps> = ({ onSignUp }) => {
     } else {
       let res = await fetch("http://localhost:8000/users/register", {
         method: "POST",
+        credentials:"include",
         headers: {
           "Content-Type": "application/json",
         },
