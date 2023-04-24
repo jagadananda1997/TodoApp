@@ -82,7 +82,7 @@ const TodoList: React.FC = () => {
         method: "DELETE",
       });
       const data = await res.json();
-      setTodos((prevTodos) => prevTodos.filter((todos) => todos._id !== id));
+      setTodos((prevTodos) => prevTodos.filter((todo) => todo._id !== id));
       console.log("Delete successful");
 
       if (data) {
