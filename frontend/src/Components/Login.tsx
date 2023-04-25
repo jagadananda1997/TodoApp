@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, TextField, Box, Typography } from "@mui/material";
 import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
-
+import {useNavigate} from "react-router-dom"
 interface LoginProps {
   onLogin: (email: string, password: string) => void;
 }
@@ -9,7 +9,7 @@ interface LoginProps {
 const Login: React.FC<LoginProps> = ({ onLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  
+  const navigate = useNavigate();
   const handleSubmit = async (event: any) => {
     event.preventDefault();
    if(!email || !password){
@@ -33,8 +33,9 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
     if (res.status === 400 || !data) {
       window.alert("Invalid Credentials");
     } else {
+      localStorage.setItem("user", JSON.stringify(data));
       window.alert("Login Successful");
-     
+     navigate("/todo")
     }
   }
   };
