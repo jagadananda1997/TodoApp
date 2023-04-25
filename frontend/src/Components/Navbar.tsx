@@ -11,7 +11,7 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="sticky">
       <Toolbar sx={{ flexGrow: 1 }}>
         <Box sx={{ flexGrow: 1 }}>
           <Typography variant="h6">TodoList</Typography>
@@ -23,15 +23,7 @@ const Navbar: React.FC = () => {
             </Button>
           </Link>
         ) : (
-          <Link to="/">
-            <Button type="submit" variant="contained" color="primary"
-            sx={{ marginLeft: "8px" }}
-            >
-              Sign Up
-            </Button>
-          </Link>
-        )}
-        <Link to="/login">
+          <Link to="/login">
           <Button
             type="submit"
             variant="contained"
@@ -41,6 +33,8 @@ const Navbar: React.FC = () => {
             Login
           </Button>
         </Link>
+        )}
+        
         <Link to="/todo">
           <Button
             type="submit"

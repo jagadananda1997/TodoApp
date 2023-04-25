@@ -56,7 +56,7 @@ const SignUp: React.FC<SignUpProps> = ({ onSignUp }) => {
 
         window.alert("Registration Successfull");
         console.log("Registration Successfull");
-        navigate("/todo");
+        navigate("/login");
       }
     }
   };

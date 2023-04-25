@@ -3,14 +3,13 @@ import React, { useState, useEffect } from "react";
 import {
   Button,
   TextField,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemSecondaryAction,
+ 
   IconButton,
   Box,
   Typography,
+  CardActions,
 } from "@mui/material";
+import { Card,  } from "@mui/material";
 import { Add, Delete, Edit } from "@mui/icons-material";
 
 interface Todo {
@@ -36,7 +35,6 @@ const TodoList: React.FC = () => {
       const data = await res.json();
 
       setTodos(data);
-
     } catch (err) {
       console.log(err);
     }
@@ -50,23 +48,19 @@ const TodoList: React.FC = () => {
     const newTodo: Todo = {
       _id: Date.now().toString(),
       title: title,
-      
-      
     };
 
     try {
       const response = await fetch("http://localhost:8000/todo", {
-        
-        
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newTodo),
       });
       const data = await response.json();
-    
+
       console.log(title);
-      
+
       if (data.status === 400 || !data) {
         window.alert("Failed to add todo");
         console.log("Failed to add todo");
@@ -179,12 +173,39 @@ const TodoList: React.FC = () => {
           </Button>
         </Box>
       </form>
-      <List>
+      <Box
+        sx={{
+          display: "flex",
+
+          justifyContent: "center",
+          gap: "20px",
+          flexWrap: "wrap",
+          margin: "5rem",
+          width: "90vw",
+        }}
+      >
         {todos.map((todo) => (
-          <ListItem key={todo._id}>
-            <ListItemText primary={todo.title} />
-            <ListItemSecondaryAction>
-              <IconButton
+          <Card
+            key={todo._id}
+            sx={{
+              width: "300px",
+              height: "120px",
+              margin: "auto",
+              border: ".5rem",
+              borderRadius: "10px",
+              boxShadow: "5px 5px 10px 15px #ccc",
+              textAlign:"center",
+              
+              
+            }}
+          >
+            <CardActions sx={{float:"right"}}>
+            <IconButton
+            sx={{
+              ":hover": {
+                color: "green",
+              },
+            }}
                 edge="end"
                 aria-label="edit"
                 onClick={() => {
@@ -196,24 +217,25 @@ const TodoList: React.FC = () => {
               >
                 <Edit />
               </IconButton>
-              <IconButton
+              <IconButton  
+                  sx={{
+                    ":hover": {
+                      color: "red",
+                    },
+                  }}
                 edge="end"
                 aria-label="delete"
                 onClick={() => handleDeleteTodo(todo._id)}
               >
                 <Delete />
               </IconButton>
-            </ListItemSecondaryAction>
-          </ListItem>
+            </CardActions>
+            <Typography variant="h4" sx={{mt:"40px"}}>{todo.title}</Typography>
+          </Card>
         ))}
-      </List>
+      </Box>
     </>
   );
 };
 
 export default TodoList;
-
-
-
-
-
