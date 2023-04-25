@@ -21,7 +21,7 @@ interface Todo {
 const TodoList: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
 
-  const [inputValue, setInputValue] = useState("");
+  const [title, setTitle] = useState("");
   useEffect(() => {
     handleGetTodo();
   }, []);
@@ -30,38 +30,43 @@ const TodoList: React.FC = () => {
     try {
       const res = await fetch("http://localhost:8000/todo", {
         method: "GET",
-        credentials: "include"
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
       });
       const data = await res.json();
 
-      // if (Array.isArray(data)) {
       setTodos(data);
-      // } else {
-      //   console.log("API response is not an array");
-      // }
+
     } catch (err) {
       console.log(err);
     }
   };
 
   const handleAddTodo = async () => {
-    if (!inputValue.trim()) {
+    if (!title.trim()) {
       return;
     }
 
     const newTodo: Todo = {
       _id: Date.now().toString(),
-      title: inputValue,
+      title: title,
+      
+      
     };
 
     try {
       const response = await fetch("http://localhost:8000/todo", {
+        
+        
         method: "POST",
         credentials: "include",
-        // headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newTodo),
       });
       const data = await response.json();
+    
+      console.log(title);
+      
       if (data.status === 400 || !data) {
         window.alert("Failed to add todo");
         console.log("Failed to add todo");
@@ -71,7 +76,7 @@ const TodoList: React.FC = () => {
       }
 
       setTodos((prevTodos) => [...prevTodos, newTodo]);
-      setInputValue("");
+      setTitle("");
     } catch (error) {
       console.error(error);
     }
@@ -82,6 +87,7 @@ const TodoList: React.FC = () => {
       const res = await fetch(`http://localhost:8000/todo/${id}`, {
         method: "DELETE",
         credentials: "include",
+        headers: { "Content-Type": "application/json" },
       });
       const data = await res.json();
       setTodos((prevTodos) => prevTodos.filter((todo) => todo._id !== id));
@@ -106,7 +112,7 @@ const TodoList: React.FC = () => {
         method: "PUT",
         credentials: "include",
 
-        // headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updatedTodo),
       });
 
@@ -157,8 +163,8 @@ const TodoList: React.FC = () => {
             margin="normal"
             variant="outlined"
             placeholder="Todo"
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
           />
 
           <Button
@@ -206,3 +212,8 @@ const TodoList: React.FC = () => {
 };
 
 export default TodoList;
+
+
+
+
+
