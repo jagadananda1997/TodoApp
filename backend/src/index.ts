@@ -16,8 +16,9 @@ app.use(express.json());
 app.use(cookieParser());
 app.use((req, res, next) => {
     res.cookie('name', 'value');
-  
-next();
+    console.log(req.cookies.token);
+     
+    next();
 })
 
 
